@@ -1,0 +1,55 @@
+{% from "_render_field.html" import render_field %}
+{% extends 'base.html' %}
+{% block content %}
+    <style type="text/css">
+        body {
+            background-image: url(../../static/fon_3.png);
+            background-attachment: fixed;
+        }
+
+        p {
+            text-align: center;
+            font-size: 50px;
+        }
+
+        .block-form-post {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-post {
+            border: 1px;
+            border-radius: 25px;
+            margin-top: 25px;
+            padding: 20px 20px 20px 20px;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+        }
+
+        .form-item {
+            width: 500px;
+        }
+    </style>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <div class="block-form-post">
+            <div class="card text-black" style="border-radius: 25px;">
+                <div class="form-post">
+                    <h1>Створити оголошення</h1>
+                    <hr>
+                    <div class="form-item">{{ render_field(form.title, class="form-control") }}</div>
+                    <div class="form-item">{{ render_field(form.category, class="form-control") }}</div>
+                    <div class="form-item">{{ render_field(form.text, class="form-control") }}</div>
+                    <div class="form-item">{{ render_field(form.picture, class="form-control") }}</div>
+                    <div class="form-item">{{ render_field(form.phone, class="form-control") }}</div>
+                    <div class="form-item">{{ render_field(form.city, class="form-control") }}</div>
+                    <div class="form-item">{{ render_field(form.status, class="form-control") }}</div>
+                    <hr>
+                    <div class="form-item">{{ render_field(form.submit, class="btn btn-primary", value="Створити оголошення") }}</div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

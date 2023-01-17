@@ -1,0 +1,82 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="../static/barnd3_11.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        .show-on-hover:hover > ul.dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            text-decoration: none;
+        }
+
+        .h4 {
+            position: absolute;
+            top: 30px;
+            left: 230px;
+            font-style: italic;
+        }
+        .div_login{
+            position: absolute;
+            right: 150px;
+        }
+    </style>
+</head>
+<body>
+<header class="p-3 text-bg-dark">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="{{ url_for('post.view_post') }}"
+               class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32"></svg>
+                <img src="../static/brand3_11.png" width="60" height="60">
+                <h4 class="h4">Переможемо разом</h4>
+            </a>
+            {% if current_user.is_authenticated %}
+                <div style="position: absolute; right: 350px;">
+                    <a class="btn btn-outline-light" href="{{ url_for('post.create_post') }}">Додати оголошення</a>
+
+                    {#                    <li><a href="{{ url_for('post.category_crud') }}" class="nav-link px-2 text-white">Додати#}
+                    {#                        категорію</a>#}
+                    {#                    </li>#}
+                    {#                    <li><a href="{{ url_for('post.add_city') }}" class="nav-link px-2 text-white">Додати місто</a></li>#}
+                    {#                    <li><a href="{{ url_for('post.add_status') }}" class="nav-link px-2 text-white">Додати#}
+                    {#                        актуальність</a></li>#}
+                </div>
+            {% else %}
+                <div class="div_login">
+                    <a class="btn btn-outline-light me-2" href="{{ url_for('auth.login') }}">Вхід</a>
+                    <a class="btn btn-warning" href="{{ url_for('auth.signup') }}">Реєстрація</a>
+                </div>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+                <div class="show-on-hover dropdown" style="position: absolute; right: 150px;">
+                    <a href="#" class="d-block link-light text-decoration-none dropdown-toggle"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <img src="../static/profile_pics/{{ current_user.image_file }}" alt="mdo" width="32" height="32"
+                             class="rounded-circle">
+                        <strong class="text-bg-dark">{{ current_user.username }}</strong>
+                    </a>
+                    <ul class="dropdown-menu text-bg-dark">
+                        <li><a class="text-bg-dark" href="{{ url_for('auth.account') }}">Профіль</a></li>
+                        <p>
+                        <li><a class="text-bg-dark" href="{{ url_for('auth.reset_password') }}">Скинути пароль</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="text-bg-dark" href="{{ url_for('auth.logout') }}">Вийти</a></li>
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</header>
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

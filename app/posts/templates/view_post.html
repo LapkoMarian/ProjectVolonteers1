@@ -1,0 +1,47 @@
+{% from "_render_field.html" import render_field %}
+{% extends 'base.html' %}
+{% block content %}
+    <style type="text/css">
+        body {
+            background-image: url(../../static/fon_3.png);
+            background-attachment: fixed;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <div class="container">
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+                    <div class="card shadow">
+                        <div class="card-body text-center">
+                            <a href="{{ url_for('post.detail_post', id=post.id) }}">
+                                <img class="card-img-top" src="/static/posts_pics/{{ post.image_file }}">
+                            </a>
+                            <ul class="list-inline mt-3">
+                                <li class="list-inline-item"><i class="fas fa-user"></i> {{ post.username }}
+                                </li>
+                                <li class="list-inline-item"><i class="far fa-clock"></i> {{ post.created }}
+                                </li>
+                            </ul>
+                            <hr>
+                            <p class="lead">{{ post.title }}</p>
+                            <ul class="list-inline mt-3">
+                                <li class="list-inline-item"><i
+                                        class="fa-solid fa-location-dot"></i> {{ post.city.city }}</li>
+                                <p>
+                                {% if post.status.id == 1 %}
+                                <li class="list-inline-item"><i
+                                        class="fa-solid fa-circle-check"></i> {{ post.status.status }}</li>
+                                {% else %}
+                                <li class="list-inline-item"><i
+                                        class="fa-solid fa-circle-xmark"></i></i> {{ post.status.status }}</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

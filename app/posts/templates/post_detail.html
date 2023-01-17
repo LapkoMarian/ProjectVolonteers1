@@ -1,0 +1,118 @@
+{% from "_render_field.html" import render_field %}
+{% extends 'base.html' %}
+{% block content %}
+    <style type="text/css">
+        body {
+            background-image: url(../../static/fon_3.png);
+            background-attachment: fixed;
+        }
+
+        #div1 {
+            position: absolute;
+            top: 225px;
+            left: 220px;
+            border-radius: 25px;
+        }
+
+        #div2 {
+            position: absolute;
+            top: 225px;
+            left: 917px;
+            border-radius: 25px;
+            width: 420px;
+        }
+
+        #div3 {
+            position: absolute;
+            top: 115px;
+            left: 217px;
+            border-radius: 25px;
+            width: 1120px;
+        }
+
+        #div4 {
+            position: absolute;
+            top: 525px;
+            left: 917px;
+            border-radius: 25px;
+            width: 420px;
+        }
+
+        #div5 {
+            position: absolute;
+            top: 740px;
+            left: 917px;
+            border-radius: 25px;
+            width: 420px;
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <div class="card shadow text-black" id="div3">
+        <div class="card-body p-md-4">
+            <h3>{{ post.title }}</h3>
+        </div>
+    </div>
+    </div>
+    <div class="container">
+        <div class="card shadow text-black" id="div1">
+            <div class="card-body p-md-4">
+                <div class="form-post">
+                    <img src="/static/posts_pics/{{ post.image_file }}" style="border-radius: 20px;">
+                    <h3>Опис</h3>
+                    <hr>
+                    <p>{{ post.text }}</p>
+                </div>
+                <div class="buttons">
+                    {% if current_user.username == post.username %}
+                        <a href="{{ url_for('post.delete_post', id=post.id) }}"
+                           onclick="return confirm('Are You Sure To Delete ?')"
+                           class="btn btn-danger btn-xs">
+                            Delete
+                        </a>
+                        <a href="{{ url_for('post.edit_post', id=post.id) }}">
+                            <button class="btn btn-primary">Edit</button>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="container">
+        <div class="card shadow text-black" id="div2">
+            <div class="card-body p-md-5">
+                <h4>Контакти</h4>
+                <hr>
+                <p><i class="fas fa-user"></i> {{ post.username }}</p>
+                <p><i class="fa-solid fa-location-dot"></i> {{ post.city.city }}</p>
+                <p><i class="fa-solid fa-phone-volume"></i> {{ post.phone }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card shadow text-black" id="div4">
+            <div class="card-body p-md-5">
+                <h4>Категорія</h4>
+                <hr>
+                <p>{{ post.category.category }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card shadow text-black" id="div5">
+            <div class="card-body p-md-5">
+                <h4>Статус</h4>
+                <hr>
+                {% if post.status.id == 1 %}
+                    <li class="list-inline-item"><i
+                            class="fa-solid fa-circle-check"></i> {{ post.status.status }}</li>
+                {% else %}
+                    <li class="list-inline-item"><i
+                            class="fa-solid fa-circle-xmark"></i></i> {{ post.status.status }}</li>
+                {% endif %}
+                <p><i class="far fa-clock"></i> {{ post.created }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

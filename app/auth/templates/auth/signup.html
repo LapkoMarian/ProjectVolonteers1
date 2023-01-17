@@ -1,0 +1,126 @@
+{% from "_render_field.html" import render_field %}
+{% extends 'base.html' %}
+{% block content %}
+    <head>
+        <style type="text/css">
+            .g-button {
+                background: #ea4335 !important;
+                width: 100%;
+                font-weight: 600;
+                color: #fff;
+                padding: 8px 25px;
+            }
+
+            .login-or {
+                position: relative;
+                color: #aaa;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            .span-or {
+                display: block;
+                position: absolute;
+                left: 50%;
+                top: -2px;
+                margin-left: -25px;
+                background-color: #fff;
+                width: 50px;
+                text-align: center;
+            }
+
+            .hr-or {
+                height: 1px;
+                margin-top: 0px !important;
+                margin-bottom: 0px !important;
+            }
+
+            .send-button {
+                background: #54C7C3 !important;
+                width: 100%;
+                font-weight: 600;
+                color: #fff;
+                padding: 8px 25px;
+            }
+
+            .card {
+                background-color: #ffffff;
+                left: 430px;
+                top: 50px;
+            }
+        </style>
+    </head>
+    <body style="background-image: url(../../../static/fon_3.png)">
+    <div class="container">
+        <div class="row">
+            <aside class="col-sm-4">
+                <form class="card" method="post">
+                    <article class="card-body">
+                        <h4 class="card-title text-center mb-4 mt-1" style="color: #1b1c22">Реєстрація</h4>
+                        <hr style="color: #aaa;">
+
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                <div class="container">
+                                    {% for category, message in messages %}
+                                        <div class="alert alert-primary" role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                        <form method="POST">
+                            {{ form_reg.csrf_token }}
+                            <div class="form-group">
+                                <div class="form-outline flex-fill mb-0">
+                                    {{ render_field(form_reg.username, class='form-control',
+                                        placeholder="Ім'я користувача") }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-outline flex-fill mb-0">
+                                    {{ render_field(form_reg.email, class='form-control',
+                                        placeholder="Електронна пошта") }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-outline flex-fill mb-0">
+                                    {{ render_field(form_reg.password1, class='form-control', placeholder="Пароль") }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-outline flex-fill mb-0">
+                                    {{ render_field(form_reg.password2, class='form-control',
+                                        placeholder="Повторіть пароль") }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-outline flex-fill mb-0">
+                                    {{ render_field(form_reg.recaptcha, class='form-control') }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ render_field(form_reg.submit, class='btn btn-block send-button', value='Зареєструватись') }}
+                            </div>
+                            <div class="col-md-12 ">
+                                <div class="login-or">
+                                    <hr class="hr-or">
+                                    <span class="span-or">або</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <a class="btn btn-block g-button" href="signup_google">
+                                    <i class="fa fa-google"></i> Реєстрація з Google
+                                </a>
+                            </div>
+                        </form>
+                    </article>
+                </form>
+            </aside>
+        </div>
+    </div>
+    </body>
+{% endblock %}
